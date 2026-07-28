@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "freelance",
+    "company": "Independent / Freelance",
+    "role": "Software Engineer",
+    "description": "Design and ship full-stack products for early-stage founders, from data pipelines and model serving through to the interface people actually use.",
+    "start": "Jan 2025",
+    "end": "Present"
+  },
+  {
+    "slug": "ml-intern",
+    "company": "Machine Learning Intern",
+    "role": "ML Engineering Intern",
+    "description": "Built and evaluated retrieval and classification models, cut inference latency through batching and quantisation, and wrote the tooling the team used to track experiments.",
+    "start": "Jun 2025",
+    "end": "Dec 2025"
+  },
+  {
+    "slug": "open-source",
+    "company": "Open Source",
+    "role": "Contributor",
+    "description": "Contribute to developer tooling and ML libraries — bug fixes, documentation, and performance work on projects used across the ecosystem.",
+    "start": "Mar 2024",
+    "end": "Present"
+  }
+]

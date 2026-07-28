@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Surfaces — near-black, layered */
+  --color-ink: #0b0b0b;
+  --color-ink-deep: #060606;
+  --color-surface: #141414;
+  --color-surface-2: #1a1a1a;
+  --color-hairline: #232323;
+
+  /* Type */
+  --color-ghost: #2b2b2b; /* second heading line */
+  --color-muted: #8a8a8a;
+  --color-faint: #6a6a6a;
+
+  /* Accents */
+  --color-accent: #f0521f;
+  --color-accent-bright: #ff6b3d;
+  --color-lime: #c9f31d;
+
+  /* Fonts (bound in app/layout.tsx via next/font) */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Shell metrics — one source of truth for the fixed two-column layout */
+  --shell-max: 1080px;
+  --shell-aside: 340px;
+  --shell-gap: 72px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: #fff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle vignette so the near-black never reads as flat #000 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 55% at 50% 0%, rgba(240, 82, 31, 0.05), transparent 70%),
+    radial-gradient(50% 50% at 12% 60%, rgba(240, 82, 31, 0.04), transparent 70%);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Keyboard focus only — never a mouse-click ring */
+:focus-visible {
+  outline: 2px solid var(--color-accent-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Duotone portrait: orange base showing through a luminosity-blended photo */
+@utility duotone {
+  mix-blend-mode: luminosity;
+  opacity: 0.92;
+}
+
+@utility glow-accent {
+  box-shadow:
+    0 10px 30px -8px rgba(240, 82, 31, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+/* Display heading: tight, heavy, uppercase */
+@utility display-hed {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+@utility label-xs {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+/* Entrance animations are CSS, not JS, so server-rendered markup is never
+   left stranded at opacity 0 when scripts are slow, blocked or disabled. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility reveal {
+  animation: reveal-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

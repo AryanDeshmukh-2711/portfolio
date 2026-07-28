@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "shipping-rag-that-holds-up",
+    "title": "Shipping a RAG System That Holds Up in Production",
+    "excerpt": "Retrieval demos are easy and retrieval products are not. Chunking, reranking, evaluation, and the failure modes that only show up once real users start asking real questions.",
+    "date": "2026-05-14",
+    "readingTime": "8min read",
+    "href": ""
+  },
+  {
+    "slug": "small-models-far",
+    "title": "How Far Can You Get With a Small Model?",
+    "excerpt": "Before reaching for the largest model available, it is worth measuring what a well-tuned small one already does. A look at where the quality curve actually bends.",
+    "date": "2026-03-02",
+    "readingTime": "6min read",
+    "href": ""
+  },
+  {
+    "slug": "interfaces-for-uncertainty",
+    "title": "Designing Interfaces for Uncertain Systems",
+    "excerpt": "Models are probabilistic and interfaces usually pretend otherwise. Patterns for showing confidence, surfacing sources, and letting people correct the machine.",
+    "date": "2026-01-19",
+    "readingTime": "5min read",
+    "href": ""
+  }
+]

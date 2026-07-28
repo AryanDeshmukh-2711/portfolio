@@ -1,0 +1,10 @@
+[
+  { "id": "nextjs", "name": "Next.js", "category": "React Framework", "color": "#ffffff", "icon": "globe", "href": "https://nextjs.org" },
+  { "id": "typescript", "name": "TypeScript", "category": "Language", "color": "#3178c6", "icon": "code", "href": "https://typescriptlang.org" },
+  { "id": "python", "name": "Python", "category": "Language", "color": "#f7c948", "icon": "terminal", "href": "https://python.org" },
+  { "id": "pytorch", "name": "PyTorch", "category": "ML Framework", "color": "#ee4c2c", "icon": "brain", "href": "https://pytorch.org" },
+  { "id": "claude", "name": "Claude", "category": "AI Assistant", "color": "#d97757", "icon": "message", "href": "https://claude.ai" },
+  { "id": "postgres", "name": "PostgreSQL", "category": "Database", "color": "#5b9bd5", "icon": "database", "href": "https://postgresql.org" },
+  { "id": "docker", "name": "Docker", "category": "Infrastructure", "color": "#2496ed", "icon": "box", "href": "https://docker.com" },
+  { "id": "figma", "name": "Figma", "category": "Design Tool", "color": "#f24e1e", "icon": "figma", "href": "https://figma.com" }
+]

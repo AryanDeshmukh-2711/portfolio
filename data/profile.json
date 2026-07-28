@@ -1,0 +1,22 @@
+{
+  "name": "Aryan Deshmukh",
+  "role": ["AI / ML", "Engineer"],
+  "tagline": "A Software Engineer focused on solving real-world problems through technology.",
+  "bio": "I'm a Computer Science student and aspiring software engineer passionate about building products that make a difference. I love turning complex ideas into clean, functional, and user-friendly solutions while constantly learning and refining my craft.",
+  "location": "India",
+  "email": "aryandeshmukh2345@gmail.com",
+  "photo": "/profile.jpg",
+  "resume": "/resume.pdf",
+  "stats": [
+    { "value": "+1", "label": "Years of experience" },
+    { "value": "+5", "label": "Projects completed" },
+    { "value": "+2", "label": "Startups founded" }
+  ],
+  "socials": [
+    { "id": "dribbble", "label": "Dribbble", "href": "https://dribbble.com/" },
+    { "id": "twitter", "label": "X", "href": "https://x.com/" },
+    { "id": "instagram", "label": "Instagram", "href": "https://instagram.com/" },
+    { "id": "youtube", "label": "YouTube", "href": "https://youtube.com/" },
+    { "id": "github", "label": "GitHub", "href": "https://github.com/" }
+  ]
+}
