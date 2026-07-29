@@ -29,7 +29,7 @@ export function ProjectList({
       <div
         role="group"
         aria-label="Filter projects by tag"
-        className="mt-9 flex flex-wrap gap-2"
+        className="flex flex-wrap gap-2"
       >
         {[ALL, ...tags].map((tag) => {
           const active = tag === filter;

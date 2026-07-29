@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import {
   BookOpen,
@@ -24,26 +22,59 @@ const icons: Record<NavItem["icon"], typeof House> = {
   contact: Mail,
 };
 
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
-}
-
 /**
- * Floating glass pill navigation. Fixed at the top on desktop and docked to
- * the bottom on small screens, and it contracts slightly once the page has
- * been scrolled so it recedes behind the content.
+ * Floating glass pill navigation. Fixed at the top on desktop, docked to the
+ * bottom on small screens, and it contracts once the page has been scrolled.
+ *
+ * The active item is driven by scroll position rather than by clicks, so the
+ * dock tracks where the reader actually is on the page.
  */
 export function DockNav() {
-  const pathname = usePathname();
+  const [active, setActive] = useState(navItems[0].id);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    // Reading scrollY in the listener rather than deferring into rAF: scroll
-    // events already fire at most once per frame, and this keeps the dock
-    // working in contexts where animation frames are throttled.
+    // Scroll events already fire at most once per frame, so no rAF wrapper.
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    // Resolved from scroll position rather than IntersectionObserver.
+    // With a narrow observer band, a section shorter than its neighbours can
+    // fail to produce a threshold crossing and get skipped entirely; picking
+    // the last section whose top has passed a probe line always names exactly
+    // one section and can never miss one.
+    const onScroll = () => {
+      const probe = window.scrollY + window.innerHeight * 0.35;
+      let current = navItems[0].id;
+
+      for (const item of navItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top + window.scrollY <= probe) {
+          current = item.id;
+        }
+      }
+
+      // At the very bottom the last section may never reach the probe line,
+      // so pin it there explicitly.
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+      if (atBottom) current = navItems[navItems.length - 1].id;
+
+      setActive(current);
+    };
+
+    // Not invoked immediately: the initial state already matches scroll 0, and
+    // calling it here would set state synchronously inside the effect.
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
@@ -60,16 +91,16 @@ export function DockNav() {
       >
         {navItems.map((item) => {
           const Icon = icons[item.icon];
-          const active = isActive(pathname, item.href);
+          const isActive = item.id === active;
 
           return (
-            <li key={item.href} className="relative">
-              <Link
-                href={item.href}
-                aria-current={active ? "page" : undefined}
+            <li key={item.id} className="relative">
+              <a
+                href={`#${item.id}`}
+                aria-current={isActive ? "true" : undefined}
                 className="group relative grid size-11 place-items-center rounded-full"
               >
-                {active && (
+                {isActive && (
                   <motion.span
                     layoutId="dock-active"
                     transition={{ type: "spring", stiffness: 420, damping: 34 }}
@@ -78,7 +109,7 @@ export function DockNav() {
                 )}
                 <Icon
                   className={`relative size-[19px] transition-colors ${
-                    active
+                    isActive
                       ? "text-accent"
                       : "text-neutral-500 group-hover:text-neutral-200"
                   }`}
@@ -90,7 +121,7 @@ export function DockNav() {
                 <span className="pointer-events-none absolute -top-9 left-1/2 hidden -translate-x-1/2 rounded-md border border-white/10 bg-neutral-900 px-2 py-1 text-[11px] whitespace-nowrap text-neutral-300 opacity-0 transition group-hover:opacity-100 lg:top-auto lg:-bottom-9 lg:block">
                   {item.label}
                 </span>
-              </Link>
+              </a>
             </li>
           );
         })}

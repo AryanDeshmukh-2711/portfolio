@@ -67,7 +67,7 @@ export function ContactForm() {
   const sending = status === "sending";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="mt-10">
+    <form onSubmit={onSubmit} noValidate>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id={`${uid}-name`}

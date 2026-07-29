@@ -37,6 +37,9 @@
 /* ------------------------------------------------------------------ */
 html {
   color-scheme: dark;
+  /* Anchor jumps from the dock glide rather than teleport. The
+     reduced-motion block below forces this back to `auto`. */
+  scroll-behavior: smooth;
 }
 
 body {
