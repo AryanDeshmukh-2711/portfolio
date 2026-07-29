@@ -5,12 +5,19 @@ import { ProfileCard } from "@/components/ProfileCard";
 import { ResumeButton } from "@/components/ResumeButton";
 
 /**
- * Persistent app frame. On desktop the viewport is pinned to 100dvh and only
- * the content column scrolls, so the profile card and dock never move.
+ * Persistent app frame: sticky-left, scrolling-right.
+ *
+ * The document itself scrolls — the profile column is `position: sticky` and
+ * pins in place while the content column travels past it. That real scroll
+ * distance is what the per-block reveals in `ScrollBlock` are driven from, so
+ * the column must not be an internal scroll container.
+ *
+ * `items-start` on the grid is load-bearing: the default `stretch` would make
+ * the aside full-height and sticky positioning would have nothing to do.
  */
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex w-full max-w-[1080px] flex-col px-5 pt-6 pb-32 lg:h-dvh lg:px-6 lg:py-7">
+    <div className="mx-auto w-full max-w-[1080px] px-5 pt-6 pb-32 lg:px-6 lg:pt-28 lg:pb-16">
       <LoadingScreen />
 
       <a
@@ -22,8 +29,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
       <DockNav />
 
-      <div className="mt-8 grid flex-1 gap-y-12 lg:mt-11 lg:min-h-0 lg:grid-cols-[var(--shell-aside)_1fr] lg:gap-x-[var(--shell-gap)]">
-        <aside className="flex flex-col items-center lg:items-stretch">
+      <div className="grid gap-y-12 lg:grid-cols-[var(--shell-aside)_1fr] lg:items-start lg:gap-x-[var(--shell-gap)]">
+        <aside className="flex flex-col items-center lg:sticky lg:top-28 lg:h-[calc(100dvh-9rem)] lg:items-stretch">
           <div className="w-full max-w-[340px]">
             <ProfileCard />
           </div>
@@ -32,10 +39,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        <main
-          id="content"
-          className="no-scrollbar min-w-0 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:pr-1"
-        >
+        <main id="content" className="min-w-0">
           <PageTransition>{children}</PageTransition>
         </main>
       </div>

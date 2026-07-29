@@ -4,25 +4,40 @@ import { GithubIcon } from "@/components/BrandIcons";
 import { CountUp } from "@/components/CountUp";
 import { Magnetic } from "@/components/Magnetic";
 import { PageHeading } from "@/components/PageHeading";
-import { Reveal } from "@/components/Reveal";
+import { ScrollBlock } from "@/components/ScrollBlock";
 import { profile } from "@/lib/content";
 
 const githubUrl =
   profile.socials.find((s) => s.id === "github")?.href ?? "https://github.com";
 
+/**
+ * The hero is split into four tall blocks rather than one dense column. The
+ * generous min-heights are deliberate: they create the scroll distance the
+ * sticky profile card is pinned against, and give each block room to fade in
+ * and back out as it passes through the viewport.
+ *
+ * They are desktop-only. Below `lg` the card is in normal flow rather than
+ * sticky, so there is nothing to scroll against and viewport-height blocks
+ * would just open large empty gaps between short pieces of content.
+ */
+const block =
+  "flex flex-col justify-center border-b border-white/5 py-12 lg:py-16";
+
 export default function HomePage() {
   return (
-    <div className="pb-4">
-      <PageHeading lead={profile.role[0]} trail={profile.role[1]} />
+    <div>
+      <ScrollBlock className={`${block} lg:min-h-[38vh]`}>
+        <PageHeading lead={profile.role[0]} trail={profile.role[1]} />
+      </ScrollBlock>
 
-      <Reveal index={1}>
-        <p className="mt-9 max-w-[400px] text-[15px] leading-[1.75] text-muted">
+      <ScrollBlock className={`${block} lg:min-h-[35vh]`}>
+        <p className="max-w-[400px] text-[15px] leading-[1.75] text-muted">
           {profile.bio}
         </p>
-      </Reveal>
+      </ScrollBlock>
 
-      <Reveal index={2}>
-        <ul className="mt-11 flex flex-wrap gap-x-14 gap-y-7">
+      <ScrollBlock className={`${block} lg:min-h-[35vh]`}>
+        <ul className="flex flex-wrap gap-x-14 gap-y-7">
           {profile.stats.map((stat, i) => (
             <li key={stat.label}>
               <span className="font-display block text-[38px] leading-none font-extrabold tracking-tight text-white tabular-nums">
@@ -34,10 +49,10 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-      </Reveal>
+      </ScrollBlock>
 
-      <Reveal index={3}>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+      <ScrollBlock className="flex flex-col justify-center py-12 lg:min-h-[40vh] lg:py-16">
+        <div className="grid gap-5 sm:grid-cols-2">
           <Magnetic strength={0.16} max={10}>
             <a
               href={githubUrl}
@@ -96,7 +111,7 @@ export default function HomePage() {
             </Link>
           </Magnetic>
         </div>
-      </Reveal>
+      </ScrollBlock>
     </div>
   );
 }

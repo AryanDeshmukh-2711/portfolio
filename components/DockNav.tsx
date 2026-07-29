@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -27,19 +28,36 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-/** Glass pill navigation — centred above the columns on desktop, docked to the
- *  bottom of the viewport on small screens. */
+/**
+ * Floating glass pill navigation. Fixed at the top on desktop and docked to
+ * the bottom on small screens, and it contracts slightly once the page has
+ * been scrolled so it recedes behind the content.
+ */
 export function DockNav() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    // Reading scrollY in the listener rather than deferring into rAF: scroll
+    // events already fire at most once per frame, and this keeps the dock
+    // working in contexts where animation frames are throttled.
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-5 z-50 flex justify-center lg:static lg:bottom-auto lg:shrink-0"
+      className="fixed inset-x-0 bottom-5 z-50 flex justify-center lg:top-6 lg:bottom-auto"
     >
       {/* Nearly opaque on small screens, where the dock floats over content
           that may be bright; pure glass on desktop, where it sits on the page. */}
-      <ul className="flex items-center gap-1 rounded-full border border-white/[0.07] bg-neutral-950/85 p-2 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)] backdrop-blur-xl lg:bg-white/[0.04]">
+      <ul
+        className={`flex origin-top items-center gap-1 rounded-full border border-white/[0.07] bg-neutral-950/85 p-2 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)] backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:bg-white/[0.05] ${
+          scrolled ? "lg:scale-[0.88]" : ""
+        }`}
+      >
         {navItems.map((item) => {
           const Icon = icons[item.icon];
           const active = isActive(pathname, item.href);
