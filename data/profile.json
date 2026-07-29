@@ -7,6 +7,7 @@
   "email": "aryandeshmukh2345@gmail.com",
   "photo": "/profile.jpg",
   "resume": "/resume.pdf",
+  "githubUsername": "AryanDeshmukh-2711",
   "stats": [
     { "value": "+1", "label": "Years of experience" },
     { "value": "+5", "label": "Projects completed" },
@@ -17,6 +18,10 @@
     { "id": "twitter", "label": "X", "href": "https://x.com/" },
     { "id": "instagram", "label": "Instagram", "href": "https://instagram.com/" },
     { "id": "youtube", "label": "YouTube", "href": "https://youtube.com/" },
-    { "id": "github", "label": "GitHub", "href": "https://github.com/" }
+    {
+      "id": "github",
+      "label": "GitHub",
+      "href": "https://github.com/AryanDeshmukh-2711"
+    }
   ]
 }
