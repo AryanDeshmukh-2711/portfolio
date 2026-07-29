@@ -4,36 +4,44 @@
  * baked into the photo so they stay crisp at any density.
  */
 
+/**
+ * The viewBox is expressed in card coordinates: (0, 0) is the card's top-left
+ * corner and one unit is one card pixel at the 340px reference width. The
+ * negative region is the bleed above and to the left of the card. Sizing the
+ * SVG at 400/340 of the card width keeps the whole sweep in proportion at any
+ * card size, which is why the translate percentages below are constants.
+ */
 export function CornerArcs({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="-14 -26 268 224"
+      viewBox="-60 -60 400 260"
       fill="none"
       aria-hidden="true"
       className={className}
     >
-      {/* Outermost, brightest — amber */}
+      {/* Outermost, brightest — amber. Enters the card's left edge about a
+          sixth of the way down and exits the top edge near the midpoint. */}
       <path
-        d="M8.7 154.1A182 182 0 0 1 221.6 -9.2"
+        d="M-18 54A158.7 158.7 0 0 1 172 -30"
         stroke="#f5a623"
         strokeWidth="6"
         strokeLinecap="round"
-        strokeDasharray="17 14"
+        strokeDasharray="16 13"
       />
       {/* Middle — accent orange */}
       <path
-        d="M30.6 183.9A160 160 0 0 1 231.4 15.5"
+        d="M6.9 53.3A137 137 0 0 1 154 -12.2"
         stroke="#f0521f"
         strokeWidth="4.5"
         strokeLinecap="round"
-        strokeDasharray="13 12"
+        strokeDasharray="12 11"
         opacity="0.85"
       />
       {/* Innermost — a faint echo for depth */}
       <path
-        d="M44.5 176.6A138 138 0 0 1 214.6 33.7"
+        d="M29.3 57A116 116 0 0 1 141.6 6.9"
         stroke="#f0521f"
-        strokeWidth="2.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeDasharray="9 10"
         opacity="0.35"

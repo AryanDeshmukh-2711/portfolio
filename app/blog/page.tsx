@@ -46,7 +46,8 @@ function Wrapper({
   href?: string;
   children: React.ReactNode;
 }) {
-  const className = "group block py-6";
+  const className =
+    "group block py-6 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1.5";
   if (!href) return <div className={className}>{children}</div>;
   return (
     <a href={href} className={className}>

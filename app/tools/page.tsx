@@ -47,10 +47,10 @@ export default function ToolsPage() {
                   href={tool.href ?? "#"}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="group flex items-center gap-3.5 rounded-2xl border border-hairline bg-surface p-4 transition hover:border-neutral-700 hover:bg-surface-2"
+                  className="group flex items-center gap-3.5 rounded-2xl border border-hairline bg-surface p-4 transition duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-neutral-700 hover:bg-surface-2"
                 >
                   <span
-                    className="grid size-11 shrink-0 place-items-center rounded-full"
+                    className="grid size-11 shrink-0 place-items-center rounded-full transition-transform duration-400 group-hover:scale-110"
                     style={{ backgroundColor: `${tool.color}1f` }}
                   >
                     <Icon

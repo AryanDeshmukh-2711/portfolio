@@ -1,4 +1,5 @@
 import { DockNav } from "@/components/DockNav";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { PageTransition } from "@/components/PageTransition";
 import { ProfileCard } from "@/components/ProfileCard";
 import { ResumeButton } from "@/components/ResumeButton";
@@ -10,6 +11,8 @@ import { ResumeButton } from "@/components/ResumeButton";
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto flex w-full max-w-[1080px] flex-col px-5 pt-6 pb-32 lg:h-dvh lg:px-6 lg:py-7">
+      <LoadingScreen />
+
       <a
         href="#content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-white"
