@@ -18,8 +18,9 @@ import { ResumeButton } from "@/components/ResumeButton";
  * There is also no bottom padding on desktop. Padding on this wrapper sits
  * below the grid, so it would end the sticky container short of the document
  * bottom and let the card drift up over the final screen no matter how much
- * content follows. The tail inside <main> supplies that breathing room instead,
- * because it extends the grid rather than sitting outside it.
+ * content followed. The last section's own padding supplies that breathing
+ * room instead, because it extends the grid rather than sitting outside it —
+ * and the page therefore stops scrolling exactly at the contact form.
  */
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -47,12 +48,6 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
         <main id="content" className="min-w-0">
           {children}
-
-          {/* A sticky item stops at its container's content box. Without this
-              tail the card would drift upward over the final screenful, so the
-              content column is extended past the last section to keep it
-              pinned all the way down. */}
-          <div aria-hidden="true" className="hidden lg:block lg:h-[32vh]" />
         </main>
       </div>
     </div>

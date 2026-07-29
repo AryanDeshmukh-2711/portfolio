@@ -11,31 +11,26 @@ const githubUrl =
   profile.socials.find((s) => s.id === "github")?.href ?? "https://github.com";
 
 /**
- * The hero is split into four tall blocks rather than one dense column. The
- * generous min-heights create the scroll distance the pinned profile card is
- * held against, and give each block room to fade in and back out.
- *
- * They are desktop-only: below `lg` the card is in normal flow, so tall blocks
- * would only open empty gaps between short pieces of content.
+ * Compact hero: heading, bio, stats and both cards sit together in the first
+ * screen, matching the reference. It is one reveal block rather than several,
+ * so the whole intro settles as a unit instead of each part fading separately
+ * while all of them are already on screen.
  */
-const block =
-  "flex flex-col justify-center border-b border-white/5 py-12 lg:py-16";
-
 export function HeroSection() {
   return (
-    <section id="home" className="scroll-mt-28" aria-label="Introduction">
-      <ScrollBlock className={`${block} lg:min-h-[38vh]`}>
+    <section
+      id="home"
+      aria-label="Introduction"
+      className="scroll-mt-28 border-b border-white/5 pb-16 lg:pb-24"
+    >
+      <ScrollBlock>
         <PageHeading lead={profile.role[0]} trail={profile.role[1]} />
-      </ScrollBlock>
 
-      <ScrollBlock className={`${block} lg:min-h-[35vh]`}>
-        <p className="max-w-[400px] text-[15px] leading-[1.75] text-muted">
+        <p className="mt-9 max-w-[400px] text-[15px] leading-[1.75] text-muted">
           {profile.bio}
         </p>
-      </ScrollBlock>
 
-      <ScrollBlock className={`${block} lg:min-h-[35vh]`}>
-        <ul className="flex flex-wrap gap-x-14 gap-y-7">
+        <ul className="mt-11 flex flex-wrap gap-x-14 gap-y-7">
           {profile.stats.map((stat, i) => (
             <li key={stat.label}>
               <span className="font-display block text-[38px] leading-none font-extrabold tracking-tight text-white tabular-nums">
@@ -47,10 +42,8 @@ export function HeroSection() {
             </li>
           ))}
         </ul>
-      </ScrollBlock>
 
-      <ScrollBlock className={`${block} lg:min-h-[40vh]`}>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2">
           <Magnetic strength={0.16} max={10}>
             <a
               href={githubUrl}
