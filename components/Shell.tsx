@@ -1,15 +1,32 @@
 import { DockNav } from "@/components/DockNav";
-import { PageTransition } from "@/components/PageTransition";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { ProfileCard } from "@/components/ProfileCard";
 import { ResumeButton } from "@/components/ResumeButton";
 
 /**
- * Persistent app frame. On desktop the viewport is pinned to 100dvh and only
- * the content column scrolls, so the profile card and dock never move.
+ * Persistent app frame: pinned-left, scrolling-right.
+ *
+ * The profile column is `position: sticky` rather than `fixed` on purpose —
+ * fixed positions against the viewport, so it would detach from the centred
+ * container and need brittle `calc(50vw …)` math to stay aligned. Sticky keeps
+ * it inside the grid, so it inherits the same margins at every width while
+ * behaving identically on screen.
+ *
+ * `items-start` on the grid is load-bearing: the default `stretch` would make
+ * the aside full-height and sticky would have nothing to move within.
+ *
+ * There is also no bottom padding on desktop. Padding on this wrapper sits
+ * below the grid, so it would end the sticky container short of the document
+ * bottom and let the card drift up over the final screen no matter how much
+ * content followed. The last section's own padding supplies that breathing
+ * room instead, because it extends the grid rather than sitting outside it —
+ * and the page therefore stops scrolling exactly at the contact form.
  */
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex w-full max-w-[1080px] flex-col px-5 pt-6 pb-32 lg:h-dvh lg:px-6 lg:py-7">
+    <div className="mx-auto w-full max-w-[1080px] px-5 pt-6 pb-32 lg:px-6 lg:pt-28 lg:pb-0">
+      <LoadingScreen />
+
       <a
         href="#content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-white"
@@ -19,8 +36,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
       <DockNav />
 
-      <div className="mt-8 grid flex-1 gap-y-12 lg:mt-11 lg:min-h-0 lg:grid-cols-[var(--shell-aside)_1fr] lg:gap-x-[var(--shell-gap)]">
-        <aside className="flex flex-col items-center lg:items-stretch">
+      <div className="grid gap-y-12 lg:grid-cols-[var(--shell-aside)_1fr] lg:items-start lg:gap-x-[var(--shell-gap)]">
+        <aside className="flex flex-col items-center lg:sticky lg:top-28 lg:h-[calc(100dvh-9rem)] lg:items-stretch">
           <div className="w-full max-w-[340px]">
             <ProfileCard />
           </div>
@@ -29,11 +46,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        <main
-          id="content"
-          className="no-scrollbar min-w-0 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:pr-1"
-        >
-          <PageTransition>{children}</PageTransition>
+        <main id="content" className="min-w-0">
+          {children}
         </main>
       </div>
     </div>

@@ -37,6 +37,9 @@
 /* ------------------------------------------------------------------ */
 html {
   color-scheme: dark;
+  /* Anchor jumps from the dock glide rather than teleport. The
+     reduced-motion block below forces this back to `auto`. */
+  scroll-behavior: smooth;
 }
 
 body {
@@ -130,6 +133,65 @@ body::before {
 
 @utility reveal {
   animation: reveal-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Word-by-word headline reveal. Each word carries its own animation-delay,
+   set inline by AnimatedHeading. */
+@keyframes reveal-word {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em) rotate(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility reveal-word {
+  display: inline-block;
+  animation: reveal-word 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Slow oscillation on the profile card — the "floating card" from the
+   reference. Deliberately small; it should register as drift, not motion. */
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(-5px) rotate(-0.35deg);
+  }
+  50% {
+    transform: translateY(5px) rotate(0.35deg);
+  }
+}
+
+@utility float-card {
+  animation: float-card 7s ease-in-out infinite;
+}
+
+/* Intro loader. Driven entirely by CSS so the overlay can never strand the
+   page: with scripts disabled it still fills, fades and takes itself out of
+   the flow. Under prefers-reduced-motion the global duration override
+   collapses both animations and it is gone on the first frame. */
+@keyframes loader-bar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes loader-out {
+  0%,
+  62% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

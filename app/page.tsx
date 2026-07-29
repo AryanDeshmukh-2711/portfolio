@@ -1,96 +1,24 @@
-import Link from "next/link";
-import { ArrowUpRight, Layers } from "lucide-react";
-import { GithubIcon } from "@/components/BrandIcons";
-import { PageHeading } from "@/components/PageHeading";
-import { Reveal } from "@/components/Reveal";
-import { profile } from "@/lib/content";
+import { BlogSection } from "@/components/sections/BlogSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { ToolsSection } from "@/components/sections/ToolsSection";
 
-const githubUrl =
-  profile.socials.find((s) => s.id === "github")?.href ?? "https://github.com";
-
+/**
+ * The whole site is one scrolling page. Each section carries the id the dock
+ * links to, and the dock highlights whichever one is crossing the viewport, so
+ * the nav tracks scrolling rather than only responding to clicks.
+ */
 export default function HomePage() {
   return (
-    <div className="pb-4">
-      <PageHeading lead={profile.role[0]} trail={profile.role[1]} />
-
-      <Reveal index={1}>
-        <p className="mt-9 max-w-[400px] text-[15px] leading-[1.75] text-muted">
-          {profile.bio}
-        </p>
-      </Reveal>
-
-      <Reveal index={2}>
-        <ul className="mt-11 flex flex-wrap gap-x-14 gap-y-7">
-          {profile.stats.map((stat) => (
-            <li key={stat.label}>
-              <span className="font-display block text-[38px] leading-none font-extrabold tracking-tight text-white">
-                {stat.value}
-              </span>
-              <span className="label-xs mt-2.5 block max-w-[92px] leading-[1.5] text-faint">
-                {stat.label}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
-
-      <Reveal index={3}>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="group flex h-[176px] flex-col justify-between rounded-[28px] bg-accent p-6 transition hover:brightness-110"
-          >
-            <div className="flex items-start justify-between">
-              <span className="grid size-10 place-items-center rounded-full bg-black/20">
-                <GithubIcon className="size-5 text-white" />
-              </span>
-              <span className="grid size-9 place-items-center rounded-full bg-black/20 transition group-hover:rotate-45">
-                <ArrowUpRight className="size-4 text-white" strokeWidth={2.4} />
-              </span>
-            </div>
-            <span className="font-display max-w-[130px] text-[15px] leading-[1.25] font-bold tracking-wide text-white uppercase">
-              Explore my GitHub
-            </span>
-          </a>
-
-          <Link
-            href="/projects"
-            className="group relative flex h-[176px] flex-col justify-between overflow-hidden rounded-[28px] bg-lime p-6 transition hover:brightness-105"
-          >
-            <div className="flex items-start justify-between">
-              <span className="grid size-10 place-items-center rounded-full bg-black/15">
-                <Layers className="size-5 text-neutral-900" strokeWidth={2.1} />
-              </span>
-              <span className="grid size-9 place-items-center rounded-full bg-black/15 transition group-hover:rotate-45">
-                <ArrowUpRight
-                  className="size-4 text-neutral-900"
-                  strokeWidth={2.4}
-                />
-              </span>
-            </div>
-            <span className="font-display relative z-10 max-w-[120px] text-[15px] leading-[1.25] font-bold tracking-wide text-neutral-900 uppercase">
-              Featured projects
-            </span>
-            <svg
-              viewBox="0 0 120 44"
-              fill="none"
-              aria-hidden="true"
-              className="absolute right-5 bottom-5 w-[118px]"
-            >
-              <path
-                d="M2 40 22 26 38 33 58 14 74 21 92 7 116 3"
-                stroke="#1a1a1a"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeDasharray="7 6"
-              />
-            </svg>
-          </Link>
-        </div>
-      </Reveal>
-    </div>
+    <>
+      <HeroSection />
+      <ProjectsSection />
+      <ExperienceSection />
+      <ToolsSection />
+      <BlogSection />
+      <ContactSection />
+    </>
   );
 }

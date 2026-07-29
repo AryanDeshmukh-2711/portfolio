@@ -67,7 +67,7 @@ export function ContactForm() {
   const sending = status === "sending";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="mt-10">
+    <form onSubmit={onSubmit} noValidate>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id={`${uid}-name`}
@@ -185,6 +185,8 @@ export function ContactForm() {
         </span>
       </button>
 
+      {/* The live region itself stays mounted so announcements are reliable;
+          only the inner span remounts, which replays the reveal. */}
       <p
         role="status"
         aria-live="polite"
@@ -192,7 +194,11 @@ export function ContactForm() {
           status === "error" ? "text-accent-bright" : "text-muted"
         }`}
       >
-        {notice}
+        {notice && (
+          <span key={notice} className="reveal inline-block">
+            {notice}
+          </span>
+        )}
       </p>
     </form>
   );

@@ -10,9 +10,10 @@ import { profile } from "@/lib/content";
  */
 export function ProfileCard() {
   return (
-    <div className="relative">
-      {/* Tucked in on small screens so the sweep never clips at the viewport edge. */}
-      <CornerArcs className="pointer-events-none absolute -top-9 -left-4 z-10 w-[206px] sm:-top-11 sm:-left-9 sm:w-[236px]" />
+    <div className="float-card relative">
+      {/* Scales with the card: the translate percentages are card-size
+          independent, so the sweep keeps its position at any width. */}
+      <CornerArcs className="pointer-events-none absolute top-0 left-0 z-10 w-[117.647%] -translate-x-[15%] -translate-y-[23.077%]" />
 
       <article className="relative overflow-hidden rounded-[28px] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.75)]">
         <div className="relative aspect-[338/357] bg-accent">

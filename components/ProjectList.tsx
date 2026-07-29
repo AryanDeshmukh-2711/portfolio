@@ -29,7 +29,7 @@ export function ProjectList({
       <div
         role="group"
         aria-label="Filter projects by tag"
-        className="mt-9 flex flex-wrap gap-2"
+        className="flex flex-wrap gap-2"
       >
         {[ALL, ...tags].map((tag) => {
           const active = tag === filter;
@@ -63,18 +63,22 @@ export function ProjectList({
               className="reveal border-b border-hairline"
             >
               <Wrapper href={href}>
-                <span
-                  aria-hidden="true"
-                  className="font-display grid size-14 shrink-0 place-items-center rounded-xl text-lg font-extrabold text-white/45"
-                  style={{
-                    background: `linear-gradient(135deg, ${project.accent}, ${project.accent}40)`,
-                  }}
-                >
-                  {project.title.charAt(0)}
+                {/* Zoom-on-hover, clipped by the wrapper so the tile keeps
+                    its rounded footprint while the fill scales past it. */}
+                <span className="grid size-14 shrink-0 overflow-hidden rounded-xl">
+                  <span
+                    aria-hidden="true"
+                    className="font-display grid size-full place-items-center text-lg font-extrabold text-white/45 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-115"
+                    style={{
+                      background: `linear-gradient(135deg, ${project.accent}, ${project.accent}40)`,
+                    }}
+                  >
+                    {project.title.charAt(0)}
+                  </span>
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="font-display block text-[19px] font-bold tracking-tight text-white">
+                  <span className="font-display block text-[19px] font-bold tracking-tight text-white transition-colors group-hover:text-accent">
                     {project.title}
                   </span>
                   <span className="mt-1 block text-[14px] text-muted">
@@ -115,7 +119,7 @@ function Wrapper({
   children: React.ReactNode;
 }) {
   const className =
-    "group flex items-center gap-5 py-5 transition hover:opacity-90";
+    "group flex items-center gap-5 py-5 transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-1.5";
 
   if (!href) return <div className={className}>{children}</div>;
 

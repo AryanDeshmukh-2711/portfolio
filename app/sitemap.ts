@@ -1,13 +1,15 @@
 import type { MetadataRoute } from "next";
-import { navItems, siteUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
+/** The site is a single page; the nav entries are in-page anchors, which are
+ *  not separate URLs and so do not belong in the sitemap. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
-  return navItems.map((item) => ({
-    url: `${siteUrl}${item.href === "/" ? "" : item.href}`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: item.href === "/" ? 1 : 0.7,
-  }));
+  return [
+    {
+      url: siteUrl,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+  ];
 }
