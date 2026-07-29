@@ -21,10 +21,15 @@ import { ResumeButton } from "@/components/ResumeButton";
  * content followed. The last section's own padding supplies that breathing
  * room instead, because it extends the grid rather than sitting outside it —
  * and the page therefore stops scrolling exactly at the contact form.
+ *
+ * The desktop top padding is pt-36 rather than pt-28 because the dock ends
+ * around 86px and every section except the hero has its own top padding to
+ * clear it. The hero starts flush, so with less the headline sits right under
+ * the dock.
  */
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto w-full max-w-[1080px] px-5 pt-6 pb-32 lg:px-6 lg:pt-28 lg:pb-0">
+    <div className="mx-auto w-full max-w-[1080px] px-5 pt-6 pb-32 lg:px-6 lg:pt-36 lg:pb-0">
       <LoadingScreen />
 
       <a
@@ -37,7 +42,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <DockNav />
 
       <div className="grid gap-y-12 lg:grid-cols-[var(--shell-aside)_1fr] lg:items-start lg:gap-x-[var(--shell-gap)]">
-        <aside className="flex flex-col items-center lg:sticky lg:top-28 lg:h-[calc(100dvh-9rem)] lg:items-stretch">
+        {/* Sticky offset matches the wrapper's top padding so the card holds
+            exactly where it starts. Height is capped so top + height stays
+            inside the viewport, which is what stops it drifting at the end. */}
+        <aside className="flex flex-col items-center lg:sticky lg:top-36 lg:h-[calc(100dvh-10rem)] lg:items-stretch">
           <div className="w-full max-w-[340px]">
             <ProfileCard />
           </div>
