@@ -21,7 +21,7 @@ export function HeroSection() {
     <section
       id="home"
       aria-label="Introduction"
-      className="scroll-mt-28 border-b border-white/5 pb-16 lg:pb-24"
+      className="scroll-mt-28 border-b border-white/5 pb-12 lg:pb-16"
     >
       <ScrollBlock>
         <PageHeading lead={profile.role[0]} trail={profile.role[1]} />

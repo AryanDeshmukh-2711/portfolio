@@ -22,6 +22,8 @@ export interface Profile {
   email: string;
   photo: string;
   resume: string;
+  /** Drives the contribution graph. Leave empty to omit that section. */
+  githubUsername: string;
   stats: Stat[];
   socials: SocialLink[];
 }
