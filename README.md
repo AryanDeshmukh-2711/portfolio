@@ -7,7 +7,7 @@ column scrolls.
 
 Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Motion · Resend
 
-## Getting started
+## Getting started 
 
 ```bash
 npm install
