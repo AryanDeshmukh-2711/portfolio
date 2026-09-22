@@ -1,13 +1,231 @@
-# Portfolio — Aryan Deshmukh
+<div align="center">
 
-A personal portfolio built to the design language in `Portfolio_Website_Claude_Brief.pdf`:
-near-black surfaces, a vibrant orange accent, oversized two-tone headings, a
-glassmorphic dock, and a profile card that stays fixed while only the content
-column scrolls.
+# ✨ Portfolio — Aryan Deshmukh
 
-Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Motion · Resend
+### Who I am, what I've built, and how to reach me — on one page
 
-## Getting started 
+**A personal portfolio with a fixed profile card, a live view of my GitHub activity,<br/>my projects, and a contact form that lands straight in my inbox.**
+
+<br/>
+
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+<br/>
+![Motion](https://img.shields.io/badge/Motion-animations-FF0055?style=for-the-badge) ![Resend](https://img.shields.io/badge/Resend-email-000000?style=for-the-badge&logo=resend&logoColor=white) ![Content](https://img.shields.io/badge/content-plain_JSON-F97316?style=for-the-badge)
+
+</div>
+
+---
+
+## 👋 In 30 seconds
+
+<table>
+<tr>
+<td width="22%">
+
+😟 **The problem**
+
+</td>
+<td>
+
+A GitHub profile shows code, but not the person behind it: what they care about, what they've shipped, and how to get in touch.
+
+</td>
+</tr>
+<tr>
+<td width="22%">
+
+💡 **The idea**
+
+</td>
+<td>
+
+One fast page that tells the whole story in order — who I am, my live GitHub activity, my projects, experience and tools — with a contact form at the end.
+
+</td>
+</tr>
+<tr>
+<td width="22%">
+
+🎯 **Who it's for**
+
+</td>
+<td>
+
+Recruiters, collaborators and anyone curious about my work.
+
+</td>
+</tr>
+<tr>
+<td width="22%">
+
+🚦 **Where it is**
+
+</td>
+<td>
+
+Designed and built, and ready to deploy. The final content — résumé, experience and writing — is being filled in. See the [roadmap](#roadmap).
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🧭 How a visit goes
+
+```mermaid
+flowchart TB
+    subgraph R1[" "]
+        direction LR
+        A["👋 Meet me<br/>bio and stats"] --> B["📈 My GitHub<br/>activity, live"] --> C["🚀 My projects<br/>filter by topic"]
+    end
+    subgraph R2[" "]
+        direction LR
+        D["💼 Experience<br/>and tools"] --> E["✍️ Writing"] --> F["✉️ Send me<br/>a message"]
+    end
+    R1 --> R2
+
+    classDef step fill:#FFF4EC,stroke:#F97316,stroke-width:2px,color:#431407
+    class A,B,C,D,E,F step
+    style R1 fill:none,stroke:none
+    style R2 fill:none,stroke:none
+```
+
+On a desktop, the profile card stays fixed on the left while only the content column scrolls.
+
+---
+
+## ✨ What's on the page
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 👋 A profile that stays put
+Photo, name, role and social links in a card that never scrolls away, next to a short bio and a few headline numbers.
+
+</td>
+<td width="50%" valign="top">
+
+### 📈 Live GitHub activity
+The last twelve months of contributions, refreshed from GitHub each day — no access token to set up, and a plain link to GitHub if that service is ever down.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 🚀 Projects, filterable
+Each project with its stack, a link to the code and a live demo where there is one. Filter chips, built from each project's tags, reorder the list with animation.
+
+</td>
+<td valign="top">
+
+### ✉️ A contact form that works
+Checked in the browser and again on the server with the same rules, rate-limited against spam, and delivered to my inbox by email.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top">
+
+### 🎨 A distinct look
+Near-black surfaces, a vivid orange accent, oversized two-tone headings and a glass-effect dock for navigation — built to a written design brief.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📮 What happens when someone sends a message
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Visitor as 👤 Visitor
+    participant Form as 📝 Contact form
+    participant API as 🖥️ Server
+    participant Mail as ✉️ Resend
+
+    Visitor->>Form: Name, email, message
+    Note over Form: Checked in the<br/>browser first
+    Form->>API: Send
+    Note over API: Same rules again,<br/>5 a minute at most,<br/>HTML made harmless
+    API->>Mail: The message
+    Mail-->>API: Delivered
+    API-->>Visitor: Thanks!
+```
+
+---
+
+## 🏗️ How it's built
+
+```mermaid
+flowchart LR
+    Browser["📱 Visitor"] --> Page["▲ Next.js page<br/>rebuilt daily"]
+    Page --> Content[("📄 data/*.json<br/>all the words")]
+    Page --> GitHub["📈 GitHub<br/>contributions"]
+    Browser --> Contact["✉️ /api/contact"] --> Resend["Resend<br/>email"]
+
+    classDef app fill:#FFF4EC,stroke:#F97316,stroke-width:2px,color:#431407
+    classDef ext fill:#EEF2FF,stroke:#6366F1,stroke-width:2px,color:#1E1B4B
+    class Browser,Page,Contact app
+    class Content,GitHub,Resend ext
+```
+
+| Layer | Tool | Why this one |
+|---|---|---|
+| 🖥️ Website | **Next.js 16 + React 19 + TypeScript** | A fast static page, plus one server route for the form |
+| 🎨 Look and feel | **Tailwind CSS 4 + Motion** | The design brief's look, with smooth entrances and reordering |
+| ✉️ Email | **Resend** | Delivers contact messages; works in local development without a key |
+| 📄 Content | **Plain JSON files** | Every word on the site can change without touching code |
+
+---
+
+## 🛡️ Built with care
+
+| | What it means | How it's done |
+|---|---|---|
+| ✅ | **One set of rules for the form** | The browser and the server validate with the same shared schema, so they can't disagree. |
+| 🚦 | **Spam-resistant** | The contact route allows five messages a minute from any one address. |
+| 🧼 | **Safe emails** | Everything a visitor types is escaped before it goes into the email. |
+| 🌧️ | **Never breaks on someone else's outage** | If the GitHub activity service is down, that section offers a link to GitHub instead, and the rest of the page loads as normal. |
+| 🔌 | **Ready for a CMS** | Only one file reads the content, so swapping JSON for a CMS touches nothing that draws the page. |
+
+---
+
+<a name="roadmap"></a>
+
+## 🗺️ Roadmap
+
+| Status | Milestone |
+|:---:|---|
+| ✅ | The full design: fixed profile card, glass dock, two-tone headings |
+| ✅ | All seven sections on one page, with a live GitHub activity graph |
+| ✅ | A working contact form, delivered by email |
+| 🔜 | Final content: my real résumé, experience and writing, replacing the placeholders |
+| 🔜 | Deploy it on Vercel, with its own address |
+
+---
+
+## 📁 What's in this repository
+
+```
+📦 portfolio
+├── 📂 app/          the page, the 404 page and the contact API
+├── 📂 components/   the profile card, dock, sections and animations
+├── 📂 data/         all the words: profile, projects, experience, tools, posts
+├── 📂 lib/          content loading, GitHub activity, form rules
+├── 📂 public/       photo and résumé
+└── 📂 docs/         the developer guide
+```
+
+---
+
+## 👩‍💻 For developers
+
+You need **Node.js** (current LTS).
 
 ```bash
 npm install
@@ -17,107 +235,20 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:3000.
+Then open <http://localhost:3000>. The contact form works without an email key — messages are printed to the console instead.
 
-```bash
-npm run build
-```
+**The full developer guide is in [`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md):**
 
-## Structure
+| Topic | Jump to |
+|---|---|
+| ✏️ Changing the words on the site | [Editing content](docs/DEVELOPER-GUIDE.md#editing-content) |
+| ✉️ Setting up email | [Contact form](docs/DEVELOPER-GUIDE.md#contact-form) |
+| ☁️ Putting it online | [Deploying](docs/DEVELOPER-GUIDE.md#deploying) |
 
-```
-app/
-  layout.tsx          root metadata, fonts, and the persistent Shell
-  page.tsx            Home — bio, stats, GitHub / featured-projects cards
-  projects/           project list with client-side tag filtering
-  experience/         roles and timeline
-  tools/              tech stack grid
-  blog/               writing index
-  contact/            enquiry form
-  api/contact/        validation, rate limiting, Resend delivery
-  sitemap.ts          generated from lib/site.ts
-  robots.ts
-components/
-  Shell.tsx           two-column frame; only <main> scrolls on desktop
-  ProfileCard.tsx     portrait, name, flame badge, socials
-  DockNav.tsx         glass pill nav with an animated active indicator
-  DashedArc.tsx       the dashed sweeps, as SVG rather than baked into the photo
-  PageHeading.tsx     the white-over-ghost headline
-  ContactForm.tsx     client validation, mirrors the server rules
-  ProjectList.tsx     filter chips + animated reordering
-  Reveal.tsx          CSS-driven staggered entrance
-data/                 all site content, as JSON
-lib/
-  content.ts          typed accessors over data/ — the seam for a CMS swap
-  site.ts             site metadata and nav definition
-  contact-schema.ts   validation shared by the form and the API route
-types/index.ts        content types
-```
+---
 
-## Editing content
+<div align="center">
 
-Everything you'd routinely change lives in `data/` — no component edits needed:
+**Built by [Aryan Deshmukh](https://github.com/AryanDeshmukh-2711)**
 
-| File              | Drives                                          |
-| ----------------- | ----------------------------------------------- |
-| `profile.json`    | Name, role headline, bio, stats, social links   |
-| `projects.json`   | Project list and the filter chips (from `tags`) |
-| `experience.json` | Experience timeline                             |
-| `posts.json`      | Writing index                                   |
-| `tools.json`      | Tech stack grid                                 |
-
-`lib/content.ts` is the only module that reads those files. Moving to a CMS
-means rewriting those functions — nothing that renders touches JSON directly.
-
-### Assets to replace
-
-- **`public/resume.pdf`** — currently a generated placeholder. Replace with your
-  real résumé; the Resume button downloads it as-is.
-- **`public/profile.jpg`** — recovered from the reference screenshots in the
-  brief, so it is only 676×714. Drop in the original full-resolution export for
-  a sharper result on high-density displays.
-
-Project thumbnails are generated from the `accent` colour in `projects.json`.
-To use real screenshots, add an `image` field and render it in
-`components/ProjectList.tsx`.
-
-## Contact form
-
-`POST /api/contact` validates with the same rules as the client
-(`lib/contact-schema.ts`), rate-limits to 5 requests per minute per IP, escapes
-all user input before templating it into the email, and sends via Resend.
-
-Copy `.env.example` to `.env.local` and fill it in:
-
-```bash
-cp .env.example .env.local
-```
-
-Without `RESEND_API_KEY` the endpoint still validates and returns success,
-logging the message to the server console — so local development works before
-any mail provider is configured. The in-memory rate limiter is per-instance;
-on serverless it resets with each cold start. For stricter limits, back it with
-Upstash or Vercel KV.
-
-## Deploying
-
-Push to GitHub and import the repo on Vercel. Set `NEXT_PUBLIC_SITE_URL` to the
-production origin — the sitemap, robots, and Open Graph image URLs are all
-derived from it.
-
-## Notes on the brief
-
-Built as specified, with these decisions worth flagging:
-
-- **Contact is a sixth dock icon.** The reference screens show five, but the
-  brief lists Contact as a section and it needs to be reachable.
-- **The experience heading reads "Work Experience"**, not the reference's "12
-  Years Of Experience", which contradicts the "+1 years" stat on the home page.
-- **Project, experience, blog and tools entries are placeholders** written to
-  suit an AI/ML engineer's profile. The name, role, bio, and stats are yours,
-  taken from the reference screens.
-- **Not included:** the analytics dashboard and CMS integration from the
-  "Features To Include" list. Both are substantial additions rather than
-  configuration — analytics needs a provider and an authenticated route, and a
-  CMS needs a hosted backend. The content layer is structured so a CMS can be
-  added behind `lib/content.ts` without touching any component.
+</div>
